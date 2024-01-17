@@ -1,37 +1,34 @@
                 AREA    LEDs, CODE
 
 MAX_SENSOR_VOLT EQU     2110
-MIN_SENSOR_VOLT EQU     993
+MIN_SENSOR_VOLT EQU     800
 BLINK_THRESHOLD EQU     2047
 
                 IMPORT  DelayShort
                 EXPORT  SetLEDLvl
 ; R0 = voltage from ADC
-; R1 = LEDs[]
-; R2 = FIOxPIN addr
+; R1 = FIOxPIN addr
 SetLEDLvl       PROC
-                PUSH    {R4-R6, LR}
-                LDR     R4, =MAX_SENSOR_VOLT
-                LDR     R5, =MIN_SENSOR_VOLT
+                PUSH    {R4, LR}
 
-                CMP     R0, #800
+                CMP     R0, #MIN_SENSOR_VOLT
                 MOVLE   R0, #0
                 MOVGT   R0, #0x040000
 
-                MOV     R5, #1024
-                CMP     R0, R5
+                MOV     R4, #1024
+                CMP     R0, R4
                 MOVGE   R0, #0x140000
 
-                MOV     R5, #2048
-                CMP     R0, R5
+                MOV     R4, #2048
+                CMP     R0, R4
                 MOVGE   R0, #0x340000
 
-                MOV     R5, #MAX_SENSOR_VOLT
-                CMP     R0, R5
+                MOV     R4, #MAX_SENSOR_VOLT
+                CMP     R0, R4
                 MOVGE   R0, #0xB40000
 
-                STR     R0, [R2]
-                POP     {R4-R6, LR}
+                STR     R0, [R1]
+                POP     {R4, LR}
                 BX      LR
                 ENDP
 

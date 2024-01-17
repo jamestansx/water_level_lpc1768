@@ -46,7 +46,6 @@ while_delayLong SUBS    R4, R4, #1
                 POP     {R4, LR}
                 BX      LR
                 ENDP
-					
 
                 EXPORT DelayShort
 DelayShort      PROC
