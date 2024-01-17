@@ -12,22 +12,23 @@ SetLEDLvl       PROC
                 PUSH    {R4, LR}
 
                 CMP     R0, #MIN_SENSOR_VOLT
-                MOVLE   R0, #0
-                MOVGT   R0, #0x040000
+                MOVLE   R5, #0
+                MOVGT   R5, #0x040000
 
                 MOV     R4, #1024
                 CMP     R0, R4
-                MOVGE   R0, #0x140000
+                MOVGE   R5, #0x140000
 
                 MOV     R4, #2048
                 CMP     R0, R4
-                MOVGE   R0, #0x340000
+                MOVGE   R5, #0x340000
 
                 MOV     R4, #MAX_SENSOR_VOLT
                 CMP     R0, R4
-                MOVGE   R0, #0xB40000
+                MOVGE   R5, #0xB40000
 
-                STR     R0, [R1]
+                STR     R5, [R1]
+                MOV     R0, R5
                 POP     {R4, LR}
                 BX      LR
                 ENDP
