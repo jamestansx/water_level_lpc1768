@@ -41,11 +41,9 @@ BlinkLEDs       PROC
                 MOV     R6, #0xB40000
 
                 ; check if there's any LED light up
-                AND     R5, R6, R5
-                CMP     R5, #0
+                TST     R5, R6
                 ORREQ   R5, R5, R0
-                MVNNE   R0, R0
-                ANDNE   R5, R5, R0
+                BICNE   R5, R5, R0
                 STR     R5, [R1]
                 PUSH    {LR}
                 BL      DelayShort
